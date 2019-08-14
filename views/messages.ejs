@@ -9,5 +9,10 @@
 <form action="/message" method="POST">
 <input type="text" name="message"><button>Send</button>
 </form>
+<ul>
+    <% messages.forEach(message => { %>
+        <li><%= message %></li>
+    <% }) %>
+</ul>
 </body>
 </html>
