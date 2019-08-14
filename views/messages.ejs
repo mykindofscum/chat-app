@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Chat App</title>
-</head>
+  <head>
+  <title>Chat App</title>
+  </head>
 
-<body>
-<h1>Welcome to Chat App</h1>
-<form action="/message" method="POST">
-<input type="text" name="message"><button>Send</button>
-</form>
-<ul>
-    <% messages.forEach(message => { %>
+  <body>
+    <h1>Welcome to Chat App</h1>
+    <form action="/message" method="POST" id="form">
+      <input type="text" name="message" id="messageBox"><button onclick="console.log('Sup')">Send</button>
+    </form>
+    <ul>
+      <% messages.forEach(message => { %>
         <li><%= message %></li>
-    <% }) %>
-</ul>
-</body>
+      <% }) %>
+    </ul>
+    <script>
+      const sendMessage = mars => {
+        mars.preventDefault();
+        const body = new URLSearchParams(new FormData(document.getElementById('form')))
+        fetch('/message', { 
+          method: 'POST',
+          body: body,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }).then(response => {
+          console.log('something happened!', response)
+          location.reload();
+        })
+      }
+      document.querySelector('#form').addEventListener('submit', sendMessage);
+    </script>
+  </body>
 </html>
